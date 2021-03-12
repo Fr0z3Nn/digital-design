@@ -7,12 +7,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UnpackService {
-
-    public static void main(String[] args) {
-        UnpackService unpackService = new UnpackService();
-        System.out.println(unpackService.unpack(" "));
-    }
-
     public String unpack(String stroke) {
         if (stroke == null || stroke.trim().isEmpty()) {
             throw new InvalidInputException("Invalid stroke");

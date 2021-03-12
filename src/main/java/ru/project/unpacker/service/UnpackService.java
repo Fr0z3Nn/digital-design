@@ -10,34 +10,27 @@ public class UnpackService {
 
     public static void main(String[] args) {
         UnpackService unpackService = new UnpackService();
-        System.out.println(unpackService.unpack("12[421]]"));
+        System.out.println(unpackService.unpack("[ ]"));
     }
 
     public String unpack(String stroke) {
         if (stroke == null || stroke.isEmpty()) {
             throw new InvalidInputException("Invalid stroke");
         }
-
         String regexp = "(\\d+\\[[^\\[\\]]+\\])";
-        for (String symbol : Pattern.compile(regexp).matcher(stroke)
-                .results()
-                .map(MatchResult::group)
-                .collect(Collectors.toSet())) {
-            String[] splitToRepeat = symbol.split("([\\[\\]])");
-            String repeat = splitToRepeat[1].repeat(Integer.parseInt(splitToRepeat[0]));
-            stroke = stroke.replace(symbol, repeat);
-            if (Pattern.compile(regexp).matcher(stroke).find()) {
+        if (Pattern.compile(regexp).matcher(stroke).find()) {
+            for (String symbol : Pattern.compile(regexp).matcher(stroke)
+                    .results()
+                    .map(MatchResult::group)
+                    .collect(Collectors.toSet())) {
+                String[] splitToRepeat = symbol.split("([\\[\\]])");
+                String repeat = splitToRepeat[1].repeat(Integer.parseInt(splitToRepeat[0]));
+                stroke = stroke.replace(symbol, repeat);
                 stroke = unpack(stroke);
-            }else {
-                return stroke;
             }
-        }
-
-        System.out.println(stroke);
-        if(Pattern.compile("[\\[\\]]+").matcher(stroke).find()){
+        } else if (Pattern.compile("[\\[\\]]+").matcher(stroke).find()) {
             throw new InvalidInputException("Invalid stroke");
         }
-
         return stroke;
     }
 }

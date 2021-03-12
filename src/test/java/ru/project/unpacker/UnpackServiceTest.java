@@ -1,8 +1,8 @@
 package ru.project.unpacker;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.project.unpacker.exception.InvalidInputException;
+import ru.project.unpacker.service.UnpackService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +22,7 @@ class UnpackServiceTest {
 
     @Test
     public void invalidTest1() {
-        String t1 = "12[421]]";
+        assertThrows(InvalidInputException.class, () -> unpackService.unpack("12[421]]"));
     }
 
     @Test

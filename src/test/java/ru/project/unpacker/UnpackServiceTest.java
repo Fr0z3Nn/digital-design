@@ -49,14 +49,8 @@ class UnpackServiceTest {
     }
 
     @Test
-    @DisplayName("5[a2[b3[c]]4[d]]]")
-    public void invalidTest4() {
-        assertThrows(InvalidInputException.class, () -> unpackService.unpack("5[a2[b3[c]]4[d]]]"));
-    }
-
-    @Test
     @DisplayName("[ ]")
-    public void invalidTest5() {
+    public void invalidTest4() {
         assertThrows(InvalidInputException.class, () -> unpackService.unpack("[ ]"));
     }
 
